@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onUpdated } from "vue";
+import { ref, computed, onUpdated, onMounted } from "vue";
 import Header from "./Header.vue";
 import BarraSalute from "./BarraSalute.vue";
 import Button from "./Button.vue";
@@ -84,14 +84,18 @@ const winGame = () => {
             winner.value = "Hai vinto!";
         }
         else {
-            winner.value = "Pareggio!"
+            winner.value = "Pareggio!";
         }
     }
 }
 
-const handeNewGame = () => {
+const handleNewGame = () => {
     win.value = false;
-    console.log(win.value);
+    round.value = 0;
+    salutePlayer.value = 100;
+    saluteNemico.value = 100;
+    disabled.value = true;
+    winner.value = "";
 }
 
 
@@ -109,7 +113,7 @@ const handeNewGame = () => {
 
         <div class="game">
 
-            <Win v-if="win" :msgWin="winner" @newGame="handeNewGame()"></Win>
+            <Win v-if="win" :msgWin="winner" @newGame="handleNewGame()"></Win>
 
             <div v-if="!win">
 
